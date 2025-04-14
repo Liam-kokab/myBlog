@@ -43,7 +43,7 @@ public class JwtUtil {
             .claims(Map.of(
                 "name", user.getName(),
                 "email", user.getEmail(),
-                "role", user.getRole(),
+                "role", "ROLE_" + user.getRole(),
                 "userId", user.getUserId()
             ))
             .subject(user.getEmail())
@@ -51,24 +51,6 @@ public class JwtUtil {
             .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
             .signWith(signingKey)
             .compact();
-    }
-
-    /**
-     * Validate and parse the JWT Token
-     */
-    public static String extractEmail(String token) {
-
-        try {
-            Claims claims = Jwts.parser()
-                .verifyWith(signingKey)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
-
-            return claims.getSubject();
-        } catch (Exception e) {
-            return null; // Invalid token
-        }
     }
 
     public static Claims extractClaims(String token) {

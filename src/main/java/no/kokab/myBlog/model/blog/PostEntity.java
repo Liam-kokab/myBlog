@@ -1,6 +1,9 @@
 package no.kokab.myBlog.model.blog;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import no.kokab.myBlog.converter.ContentConverter;
 import no.kokab.myBlog.model.content.Content;
 import org.springframework.data.annotation.Id;
@@ -16,6 +19,8 @@ public class PostEntity {
     @jakarta.persistence.Id
     private Long postId;
 
+    @NotBlank(message = "Title is required")
+    @Size(min = 3, max = 100, message = "Title must be between 3 and 100 characters")
     private String title;
 
     @Lob
@@ -23,18 +28,24 @@ public class PostEntity {
     @Column(columnDefinition = "jsonb")
     private List<Content> content;
 
-    private Long authorId;
+    @NotNull(message = "a category is required")
+    private long categoryId;
+
+    @NotNull(message = "an author is required")
+    private Long userId;
+
     private String createdAt;
     private String updatedAt;
 
     public PostEntity() {
     }
 
-    public PostEntity(Long postId, String title, List<Content> content, Long authorId, String createdAt, String updatedAt) {
+    public PostEntity(Long postId, String title, List<Content> content, Long userId, Long categoryId, String createdAt, String updatedAt) {
         this.postId = postId;
         this.title = title;
         this.content = content;
-        this.authorId = authorId;
+        this.userId = userId;
+        this.categoryId = categoryId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
@@ -64,12 +75,20 @@ public class PostEntity {
         this.content = content;
     }
 
-    public Long getAuthorId() {
-        return authorId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setAuthorId(Long authorId) {
-        this.authorId = authorId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getCreatedAt() {

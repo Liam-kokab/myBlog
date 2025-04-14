@@ -25,7 +25,7 @@ public class signUpController {
     }
 
     @PostMapping
-    public UserWithToken createUser(@Valid @RequestBody UserEntity user) {
+    public UserWithToken signUp(@Valid @RequestBody UserEntity user) {
         if (!Objects.equals(user.getRole(), RoleName.USER.toString()) && !Objects.equals(user.getRole(), RoleName.EDITOR.toString())) {
             throw new InvalidUserRoleException("Invalid role: " + user.getRole());
         }

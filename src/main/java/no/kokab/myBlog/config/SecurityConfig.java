@@ -38,6 +38,8 @@ public class SecurityConfig {
 
                 .requestMatchers(HttpMethod.GET, "/post").permitAll()
                 .requestMatchers(HttpMethod.POST, "/post").hasAnyRole("ADMIN", "EDITOR")
+                .requestMatchers(HttpMethod.PUT, "/post").hasAnyRole("ADMIN", "EDITOR")
+                .requestMatchers(HttpMethod.DELETE, "/post").hasAnyRole("ADMIN", "EDITOR")
 
                 // For testing purposes, allow other requests, change this in production
                 .anyRequest().permitAll()
