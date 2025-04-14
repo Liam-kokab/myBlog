@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="no.kokab.myBlog.util.JwtUtilTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-04-10T10:39:58.238Z" hostname="LIAM-WORK" time="0.267">
-  <properties/>
-  <testcase name="testGenerateToken()" classname="no.kokab.myBlog.util.JwtUtilTest" time="0.267"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
