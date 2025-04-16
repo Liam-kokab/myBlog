@@ -1,7 +1,7 @@
 package no.kokab.myBlog.controller;
 
 import jakarta.validation.Valid;
-import no.kokab.myBlog.model.blog.PostEntity;
+import no.kokab.myBlog.model.post.PostEntity;
 import no.kokab.myBlog.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -32,14 +32,14 @@ public class PostController {
         return postService.getPosts(Math.min(limit, MAX_POST_LIMIT), offset);
     }
 
-    @GetMapping("/{postId}")
-    public PostEntity getPostById(@PathVariable Long postId) {
-        return postService.getPostById(postId);
-    }
-
     @PostMapping
     public PostEntity createPost(@Valid @RequestBody PostEntity post) {
         return postService.createPost(post);
+    }
+
+    @GetMapping("/{postId}")
+    public PostEntity getPostById(@PathVariable Long postId) {
+        return postService.getPostById(postId);
     }
 
     @PutMapping("/{postId}")

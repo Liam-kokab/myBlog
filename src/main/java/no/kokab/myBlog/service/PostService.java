@@ -1,6 +1,6 @@
 package no.kokab.myBlog.service;
 
-import no.kokab.myBlog.model.blog.PostEntity;
+import no.kokab.myBlog.model.post.PostEntity;
 import no.kokab.myBlog.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;

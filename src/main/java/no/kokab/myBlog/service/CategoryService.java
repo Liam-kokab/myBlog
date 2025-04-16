@@ -2,7 +2,7 @@ package no.kokab.myBlog.service;
 
 import no.kokab.myBlog.exception.CategoryAlreadyExistException;
 import no.kokab.myBlog.exception.ElementNotFoundException;
-import no.kokab.myBlog.model.blog.CategoryEntity;
+import no.kokab.myBlog.model.post.CategoryEntity;
 import no.kokab.myBlog.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

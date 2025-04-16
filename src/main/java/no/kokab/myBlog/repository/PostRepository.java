@@ -1,6 +1,6 @@
 package no.kokab.myBlog.repository;
 
-import no.kokab.myBlog.model.blog.PostEntity;
+import no.kokab.myBlog.model.post.PostEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

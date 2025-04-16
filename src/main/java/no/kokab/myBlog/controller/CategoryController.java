@@ -1,6 +1,6 @@
 package no.kokab.myBlog.controller;
 
-import no.kokab.myBlog.model.blog.CategoryEntity;
+import no.kokab.myBlog.model.post.CategoryEntity;
 
 import no.kokab.myBlog.service.CategoryService;
 import org.springframework.validation.annotation.Validated;

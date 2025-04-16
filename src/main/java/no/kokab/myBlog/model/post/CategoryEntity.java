@@ -1,4 +1,4 @@
-package no.kokab.myBlog.model.blog;
+package no.kokab.myBlog.model.post;
 
 import jakarta.persistence.*;
 import org.springframework.data.annotation.Id;

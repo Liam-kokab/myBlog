@@ -1,9 +1,9 @@
 package no.kokab.myBlog.converter;
 
-import jakarta.persistence.AttributeConverter;
-import jakarta.persistence.Converter;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 import no.kokab.myBlog.model.content.Content;
 
 import java.util.List;
@@ -11,7 +11,11 @@ import java.util.List;
 @Converter
 public class ContentConverter implements AttributeConverter<List<Content>, String> {
 
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
+
+    public ContentConverter() {
+        this.objectMapper = new ObjectMapper();
+    }
 
     @Override
     public String convertToDatabaseColumn(List<Content> content) {
@@ -25,7 +29,7 @@ public class ContentConverter implements AttributeConverter<List<Content>, Strin
     @Override
     public List<Content> convertToEntityAttribute(String dbData) {
         try {
-            return objectMapper.readValue(dbData, new TypeReference<List<Content>>() {});
+            return objectMapper.readValue(dbData, new TypeReference<>() {});
         } catch (Exception e) {
             throw new RuntimeException("Failed to convert JSON to content", e);
         }

@@ -1,6 +1,11 @@
 package no.kokab.myBlog.model.content;
 
-public record ImageContent(String title, String text, String url) implements Content {
+public record ImageContent(String type, String title, String text, String url) implements Content {
+    @Override
+    public String type() {
+        return type;
+    }
+
     @Override
     public String title() {
         return title;

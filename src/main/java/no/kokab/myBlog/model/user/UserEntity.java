@@ -11,6 +11,7 @@ import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Entity
 @Table(name = "users")
@@ -33,8 +34,8 @@ public class UserEntity {
     @Size(min = 8, message = "Password must be at least 6 characters long")
     private String password;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    private LocalDateTime createdAt = LocalDateTime.now(ZoneOffset.UTC);
+    private LocalDateTime updatedAt = LocalDateTime.now(ZoneOffset.UTC);
 
     @NotNull(message = "Role is required")
     @jakarta.validation.constraints.Pattern(
