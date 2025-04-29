@@ -46,7 +46,7 @@ public class JwtUtil {
                 "role", "ROLE_" + user.getRole(),
                 "userId", user.getUserId()
             ))
-            .subject(user.getEmail())
+            .subject(user.getUserId().toString())
             .issuedAt(new Date())
             .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
             .signWith(signingKey)

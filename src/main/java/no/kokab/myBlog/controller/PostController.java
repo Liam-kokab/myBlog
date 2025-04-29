@@ -1,8 +1,11 @@
 package no.kokab.myBlog.controller;
 
 import jakarta.validation.Valid;
+import no.kokab.myBlog.model.post.CreatePost;
 import no.kokab.myBlog.model.post.PostEntity;
+import no.kokab.myBlog.model.post.PostRespond;
 import no.kokab.myBlog.service.PostService;
+import no.kokab.myBlog.util.AuthenticationUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +28,7 @@ public class PostController {
 
     @GetMapping
     // query parameters: limit, offset both are optional
-    public List<PostEntity> getPosts(
+    public List<PostRespond> getPosts(
             @RequestParam(defaultValue = DEFAULT_POST_LIMIT) int limit,
             @RequestParam(defaultValue = "0") int offset) {
 
@@ -33,18 +36,41 @@ public class PostController {
     }
 
     @PostMapping
-    public PostEntity createPost(@Valid @RequestBody PostEntity post) {
-        return postService.createPost(post);
+    public PostRespond createPost(@Valid @RequestBody CreatePost post) {
+        // Get the authenticated user ID from the security context
+        Long userId = AuthenticationUtil.getAuthenticatedUserId();
+
+        return postService.createPost(new PostEntity(
+            null,
+            post.title(),
+            post.content(),
+            post.categoryId(),
+            userId,
+            post.tags(),
+            null,
+            null
+        ));
     }
 
     @GetMapping("/{postId}")
-    public PostEntity getPostById(@PathVariable Long postId) {
+    public PostRespond getPostById(@PathVariable Long postId) {
         return postService.getPostById(postId);
     }
 
     @PutMapping("/{postId}")
-    public PostEntity updatePost(@PathVariable Long postId, @Valid @RequestBody PostEntity post) {
-        return postService.updatePost(postId, post);
+    public PostRespond updatePost(@PathVariable Long postId, @Valid @RequestBody CreatePost post) {
+        Long userId = AuthenticationUtil.getAuthenticatedUserId();
+
+        return postService.updatePost(userId, new PostEntity(
+            postId,
+            post.title(),
+            post.content(),
+            post.categoryId(),
+            null,
+            post.tags(),
+            null,
+            null
+        ));
     }
 
     @DeleteMapping("/{postId}")
@@ -61,9 +87,4 @@ public class PostController {
         return "Search results for query: " + query;
     }
 
-    @GetMapping("/category/{categoryId}")
-    public String getPostsByCategory(@PathVariable Long categoryId) {
-        // Logic to retrieve posts by category
-        return "List of posts for category ID: " + categoryId;
-    }
 }
