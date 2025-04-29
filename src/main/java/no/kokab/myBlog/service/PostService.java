@@ -7,12 +7,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 @Service
 public class PostService {
 
-    @Autowired
     private final PostRepository postRepository;
 
     public PostService(PostRepository postRepository) {
@@ -36,11 +37,18 @@ public class PostService {
         PostEntity existingPost = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 
-        existingPost.setTitle(post.getTitle());
-        existingPost.setContent(post.getContent());
-        existingPost.setCategoryId(post.getCategoryId());
-
-        return postRepository.save(existingPost);
+        return postRepository.save(
+            new PostEntity(
+                existingPost.getPostId(),
+                post.getTitle(),
+                post.getContent(),
+                post.getCategoryId(),
+                existingPost.getUserId(),
+                post.getTags(),
+                existingPost.getCreatedAt(),
+                LocalDateTime.now(ZoneOffset.UTC)
+            )
+        );
     }
 
     public boolean deletePost(Long postId) {

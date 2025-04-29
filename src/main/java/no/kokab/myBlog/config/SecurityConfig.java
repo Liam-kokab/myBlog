@@ -41,6 +41,11 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.PUT, "/post").hasAnyRole("ADMIN", "EDITOR")
                 .requestMatchers(HttpMethod.DELETE, "/post").hasAnyRole("ADMIN", "EDITOR")
 
+                .requestMatchers(HttpMethod.GET, "/category").permitAll()
+                .requestMatchers(HttpMethod.POST, "/category").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PUT, "/category").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/category").hasRole("ADMIN")
+
                 // For testing purposes, allow other requests, change this in production
                 .anyRequest().permitAll()
                 // Uncomment this line to require authentication for all other requests

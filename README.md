@@ -51,10 +51,3 @@ The application follows a layered architecture:
 - Gradle installed
 
 ---
-
-## Setup Instructions
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-repo/myBlog.git
-   cd myBlog# myBlog
-A blog backend make with java REST API With PostgreSQL and auth.

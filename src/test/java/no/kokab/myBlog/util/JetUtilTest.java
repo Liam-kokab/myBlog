@@ -1,6 +1,5 @@
 package no.kokab.myBlog.util;
 
-import no.kokab.myBlog.model.user.RoleName;
 import no.kokab.myBlog.model.user.UserEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +23,9 @@ class JwtUtilTest {
             "Test User",
             "test@test.com",
             "password",
-            RoleName.USER
+            "USER",
+            null,
+            null
         );
 
         String token = JwtUtil.generateToken(user);

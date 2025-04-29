@@ -1,7 +1,9 @@
 package no.kokab.myBlog.controller;
 
-import no.kokab.myBlog.model.post.CategoryEntity;
+import jakarta.validation.Valid;
+import no.kokab.myBlog.model.category.CategoryEntity;
 
+import no.kokab.myBlog.model.category.CategoryRequest;
 import no.kokab.myBlog.service.CategoryService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,12 +32,12 @@ public class CategoryController {
     }
 
     @PostMapping
-    public CategoryEntity createCategory(@RequestBody CategoryEntity category) {
+    public CategoryEntity createCategory(@Valid @RequestBody CategoryRequest category) {
         return categoryService.createCategory(category);
     }
 
     @PutMapping("/{categoryId}")
-    public CategoryEntity updateCategory(@PathVariable Long categoryId, @RequestBody CategoryEntity category) {
+    public CategoryEntity updateCategory(@PathVariable Long categoryId,@Valid @RequestBody CategoryRequest category) {
         return categoryService.updateCategory(categoryId, category);
     }
 

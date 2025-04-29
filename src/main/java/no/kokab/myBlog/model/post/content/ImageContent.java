@@ -1,4 +1,4 @@
-package no.kokab.myBlog.model.content;
+package no.kokab.myBlog.model.post.content;
 
 public record ImageContent(String type, String title, String text, String url) implements Content {
     @Override

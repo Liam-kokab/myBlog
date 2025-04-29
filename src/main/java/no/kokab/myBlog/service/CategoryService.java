@@ -2,9 +2,9 @@ package no.kokab.myBlog.service;
 
 import no.kokab.myBlog.exception.CategoryAlreadyExistException;
 import no.kokab.myBlog.exception.ElementNotFoundException;
-import no.kokab.myBlog.model.post.CategoryEntity;
+import no.kokab.myBlog.model.category.CategoryEntity;
+import no.kokab.myBlog.model.category.CategoryRequest;
 import no.kokab.myBlog.repository.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +13,11 @@ import java.util.List;
 @Service
 public class CategoryService {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
+
+    public CategoryService(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     public List<CategoryEntity> getAllCategories() {
         return categoryRepository.findAll();
@@ -24,23 +27,27 @@ public class CategoryService {
         return categoryRepository.findByCategoryId(categoryId);
     }
 
-    public CategoryEntity createCategory(CategoryEntity category) {
-        Page<CategoryEntity> existingCategories = categoryRepository.findAllByName(category.getName(), null);
+    public CategoryEntity createCategory(CategoryRequest category) {
+        Page<CategoryEntity> existingCategories = categoryRepository.findAllByName(category.name(), null);
 
         if (existingCategories.hasContent()) {
             throw new CategoryAlreadyExistException("Category with this name already exists");
         }
 
-        return categoryRepository.save(category);
+        return categoryRepository.save(new CategoryEntity(
+            null,
+            category.name(),
+            category.description()
+        ));
     }
 
-    public CategoryEntity updateCategory(Long categoryId, CategoryEntity category) {
+    public CategoryEntity updateCategory(Long categoryId, CategoryRequest category) {
         CategoryEntity existingCategory = categoryRepository.findByCategoryId(categoryId);
         if (existingCategory == null) {
             throw new ElementNotFoundException("Category not found");
         }
 
-        Page<CategoryEntity> existingCategories = categoryRepository.findAllByName(category.getName(), null);
+        Page<CategoryEntity> existingCategories = categoryRepository.findAllByName(category.name(), null);
         if (existingCategories.hasContent()) {
             existingCategories.getContent()
                 .forEach(existing -> {
@@ -50,10 +57,11 @@ public class CategoryService {
                 });
         }
 
-        existingCategory.setName(category.getName());
-        existingCategory.setDescription(category.getDescription());
-
-        return categoryRepository.save(existingCategory);
+        return categoryRepository.save(new CategoryEntity(
+            existingCategory.getCategoryId(),
+            category.name(),
+            category.description()
+        ));
     }
 
     public boolean deleteCategory(Long categoryId) {

@@ -1,4 +1,4 @@
-package no.kokab.myBlog.model.content;
+package no.kokab.myBlog.model.post.content;
 
 public record TextContent(String type, String title, String text) implements Content {
 

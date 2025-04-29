@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import no.kokab.myBlog.model.content.Content;
+import no.kokab.myBlog.model.post.content.Content;
 
 import java.util.List;
 

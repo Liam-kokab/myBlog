@@ -2,7 +2,7 @@ package no.kokab.myBlog.controller;
 
 import jakarta.validation.Valid;
 import no.kokab.myBlog.exception.InvalidUserRoleException;
-import no.kokab.myBlog.model.user.RoleName;
+import no.kokab.myBlog.model.user.SignUpRequestUser;
 import no.kokab.myBlog.model.user.UserEntity;
 import no.kokab.myBlog.model.user.UserWithToken;
 import no.kokab.myBlog.service.UserService;
@@ -25,14 +25,14 @@ public class signUpController {
     }
 
     @PostMapping
-    public UserWithToken signUp(@Valid @RequestBody UserEntity user) {
-        if (!Objects.equals(user.getRole(), RoleName.USER.toString()) && !Objects.equals(user.getRole(), RoleName.EDITOR.toString())) {
-            throw new InvalidUserRoleException("Invalid role: " + user.getRole());
+    public UserWithToken signUp(@Valid @RequestBody SignUpRequestUser user) {
+        if (!Objects.equals(user.role(), "USER") && !Objects.equals(user.role(), "EDITOR")) {
+            throw new InvalidUserRoleException("Invalid role: " + user.role());
         }
 
         UserEntity newUser = userService.createUser(user);
 
-        return new UserWithToken(newUser);
+        return UserWithToken.fromUserEntity(newUser);
     }
 
 }

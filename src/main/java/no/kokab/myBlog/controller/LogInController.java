@@ -28,7 +28,7 @@ public class LogInController {
         if (userRes.isEmpty()) {
             throw new WrongEmailOrPassword("Wrong email or password");
         } else {
-            return new UserWithToken(userRes.get());
+            return UserWithToken.fromUserEntity(userRes.get());
         }
     }
 

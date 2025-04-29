@@ -1,4 +1,4 @@
-package no.kokab.myBlog.model.content;
+package no.kokab.myBlog.model.post.content;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

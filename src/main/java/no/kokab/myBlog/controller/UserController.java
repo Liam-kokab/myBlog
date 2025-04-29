@@ -1,6 +1,8 @@
 package no.kokab.myBlog.controller;
 
-import no.kokab.myBlog.model.user.UserEntity;
+import jakarta.validation.Valid;
+import no.kokab.myBlog.model.user.SignUpRequestUser;
+import no.kokab.myBlog.model.user.UserPublic;
 import no.kokab.myBlog.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +22,8 @@ public class UserController {
     }
 
     @PostMapping
-    public UserEntity createUser(@RequestBody UserEntity user) {
-        return userService.createUser(user);
+    public UserPublic createUser(@Valid @RequestBody SignUpRequestUser user) {
+        return UserPublic.fromUserEntity(userService.createUser(user));
     }
 
 }
